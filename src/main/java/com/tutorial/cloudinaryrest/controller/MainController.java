@@ -11,12 +11,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.Optional;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/products")
-//@CrossOrigin(origins = "http://localhost:4200",methods= {RequestMethod.GET,RequestMethod.POST})
-//@CrossOrigin(origins ="http://localhost:4200")
 public class MainController {
 	String subPath = "products";
 
@@ -34,7 +33,12 @@ public class MainController {
         List<Imagen> list = imagenService.list();
         return new ResponseEntity(list, HttpStatus.OK);
     }
-
+   
+    @GetMapping("/get")
+	public ResponseEntity<List<Imagen>> findAll(@RequestParam(value = "name", defaultValue = "") String name) {
+		return ResponseEntity.ok(imagenService.findProductsByName(name));
+	} 
+   
     @GetMapping("/aa")
 	public ResponseEntity<String> aaa() {
 		return ResponseEntity.ok(System.getProperty("user.dir") + "src\\main\\resources\\static\\images\\");

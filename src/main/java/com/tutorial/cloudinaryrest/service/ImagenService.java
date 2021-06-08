@@ -5,6 +5,8 @@ import com.tutorial.cloudinaryrest.repository.ImagenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,7 +20,12 @@ public class ImagenService {
     public List<Imagen> list(){
         return imagenRepository.findByOrderById();
     }
-
+    
+    public List<Imagen> findProductsByName(String name) {
+		List<Imagen> result = new ArrayList<Imagen>();
+		imagenRepository.findPoductsByName(name).forEach(result::add);
+		return result;
+	}
     public Optional<Imagen> findById(Long id){
         return imagenRepository.findById(id);
     }
